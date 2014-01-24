@@ -44,7 +44,7 @@
     "init-skeleton": "~0.2.0",
     "loggy": "~0.2.0",
     "pushserve": "~0.1.6",
-    "read-components": "~0.6.0",
+    "read-components": "git://github.com/paulmillr/read-components.git#e17cf",
     "commonjs-require-definition": "~0.1.0",
     "async-each": "~0.1.2",
     "async-waterfall": "~0.1.2",
