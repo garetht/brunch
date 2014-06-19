@@ -82,17 +82,21 @@ module.exports = class FileList extends EventEmitter
     @assets.filter((file) -> file.path is path)[0]
 
   compileDependencyParents: (path) ->
-    debug "Compiling dependency '#{path}' parent(s)"
-    @files
+    parents = @files
       .filter (dependent) =>
         dependent.dependencies.length > 0
       .filter (dependent) =>
         path in dependent.dependencies
       .filter (dependent) =>
         not @compiled[dependent.path]
-      .forEach(@compile)
+
+    if parents.length
+      parentsList = parents.map((_) -> _.path).join ', '
+      debug "Compiling dependency '#{path}' parent(s): #{parentsList}"
+      parents.forEach @compile
 
   compile: (file) =>
+    file.removed = false
     path = file.path
     if @compiling[path]
       @resetTimer()
@@ -133,10 +137,10 @@ module.exports = class FileList extends EventEmitter
       unless ignored
         @copy (@findAsset(path) ? @_addAsset path)
     else
-      if ignored or not compiler?.length
-        @compileDependencyParents path unless @initial
-      else
+      if not ignored and compiler?.length
         @compile (@find(path) ? @_add path, compiler, linters, isHelper)
+
+      @compileDependencyParents path unless @initial
 
   _unlink: (path) =>
     ignored = @isIgnored path
