@@ -42,7 +42,7 @@
     "source-map": "~0.1.26",
     "chokidar": "~0.8.1",
     "init-skeleton": "~0.2.0",
-    "loggy": "~0.2.0",
+    "loggy": "git://github.com/garetht/loggy",
     "pushserve": "~0.1.6",
     "read-components": "git://github.com/paulmillr/read-components.git#e17cf",
     "commonjs-require-definition": "~0.1.0",
